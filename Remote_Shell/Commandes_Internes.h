@@ -4,4 +4,5 @@
 
 void internal_cmd_host();
 void internal_cmd_echo(Expression *e);
+void internal_cmd_kill(Expression *e);
 #endif

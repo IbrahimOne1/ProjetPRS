@@ -11,14 +11,6 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-
-int num_elements (char** array){
-  int size = 0;
-  while (array[size] != NULL)
-    ++size;
-  return size;
-}
-
 extern int yyparse_string(char *);
 
  bool interactive_mode = 1; // par défaut on utilise readline 

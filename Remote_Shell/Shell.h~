@@ -38,7 +38,7 @@ char **AjouterArg (char **, char *);
 char **InitialiserListeArguments (void);
 int LongueurListe(char **);
 void EndOfFile(void);
-int num_elements (char** array);
+
 void yyerror (char *s);
 Expression *ExpressionAnalysee;
 extern int status;
