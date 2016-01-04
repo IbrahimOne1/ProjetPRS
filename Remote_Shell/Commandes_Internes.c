@@ -1,29 +1,21 @@
 #include "Commandes_Internes.h"
+#include <stdio.h>
 
 #include <string.h>
 #include <unistd.h>
-#include <signal.h>
-#include <sys/wait.h>
 
-
-void internal_cmd_exit(){
-  raise(9);//send signal to calling process
-  //execlp("kill", "kill", "-9", getpid(), NULL);
+void internal_cmd_host()
+{char hostname[1024];
+hostname[1023] = '\0';
+gethostname(hostname, 1023);
+printf("Hostname: %s\n", hostname);
 }
-
-//////////////////////////remote_shell////////////////////////////////////////
-
-void remote_add (Expression *e){
-  printf("size of args: %d\n", num_elements(e->arguments));
-  printf("arg0: %s\n", e->arguments[0]);
-  printf("arg1: %s\n", e->arguments[1]);
-  printf("arg2: %s\n", e->arguments[2]);
-  printf("arg9: %s\n", e->arguments[9]);
-}
-
-void internal_cmd_remote(Expression *e){
-
-  if (!strcmp (e->arguments[1], "add"))
-    remote_add(e);
- 
-}
+void internal_cmd_echo(Expression *e)
+{
+     size_t i;
+     if (num_elements(e->arguments) > 1)
+       printf("%s",(e->arguments[1]));
+     for (i = 2; i < num_elements(e->arguments); i++)
+       printf(" %s",(e->arguments[i]));
+    printf("\n");
+    }
