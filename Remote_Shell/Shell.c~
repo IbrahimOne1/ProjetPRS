@@ -11,13 +11,6 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-int num_elements (char** array){
-  int size = 0;
-  while (array[size] != NULL)
-    ++size;
-  return size;
-}
-
 extern int yyparse_string(char *);
 
  bool interactive_mode = 1; // par défaut on utilise readline 
@@ -216,7 +209,7 @@ my_yyparse(void)
       | 										      |
       | - e.arguments, de type char **, a deux interpretations :			      |
       | 										      |
-      |      - si le type de la commande est simple, e.arguments pointe sur un tableau à la   | 
+      |      - si le type de la commande est simple, e.arguments pointe sur un tableau à la   |
       |       argv. (e.arguments)[0] est le nom de la commande, (e.arguments)[1] est le	      |
       |       premier argument, etc.							      |
       | 										      |

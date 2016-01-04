@@ -5,7 +5,12 @@
 #include <string.h>
 #include <unistd.h>
 #include <signal.h>
-#include <sys/wait.h>
+
+
+void internal_cmd_exit(){
+  raise(9);//send signal to calling process
+  //execlp("kill", "kill", "-9", getpid(), NULL);
+}
 
 
  /*
@@ -36,10 +41,6 @@ void execute_simple_command(Expression *e){
 
   if (!strcmp (e->arguments[0], "exit"))
     internal_cmd_exit();
-  else if (!strcmp (e->arguments[0], "remote")){
-    internal_cmd_remote(e);
-    return;
-  }
   
   int tmp;
   int pid = fork();
