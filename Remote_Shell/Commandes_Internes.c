@@ -14,11 +14,10 @@ void internal_cmd_exit(){
 //////////////////////////remote_shell////////////////////////////////////////
 
 void remote_add (Expression *e){
-  printf("size of args: %d\n", num_elements(e->arguments));
-  printf("arg0: %s\n", e->arguments[0]);
-  printf("arg1: %s\n", e->arguments[1]);
-  printf("arg2: %s\n", e->arguments[2]);
-  printf("arg9: %s\n", e->arguments[9]);
+  
+  int num_args = num_elements(e->arguments);
+  for (int i = 2; i < num_args; ++i){
+    
 }
 
 void internal_cmd_remote(Expression *e){
