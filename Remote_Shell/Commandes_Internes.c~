@@ -11,11 +11,13 @@ gethostname(hostname, 1023);
 printf("Hostname: %s\n", hostname);
 }
 void internal_cmd_echo(Expression *e)
-{
-     size_t i;
-     if (sizeof(e->arguments[1]) > 1)
+{ int nb=num_elements(e->arguments);
+    int i;
+     if (nb > 1)
        printf("%s",(e->arguments[1]));
-     for (i = 2; i < sizeof(e->arguments); i++)
+     for (i = 2; i < nb; i++)
        printf(" %s",(e->arguments[i]));
     printf("\n");
     }
+void internal_cmd_kill(Expression *e)
+{}

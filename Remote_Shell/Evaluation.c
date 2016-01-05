@@ -48,6 +48,9 @@ void execute_simple_command(Expression *e){
   if (!strcmp (e->arguments[0], "echo")){
     internal_cmd_echo(e);
     return;}
+    if (!strcmp (e->arguments[0], "kill")){
+    internal_cmd_kill(e);
+    return;}
   int tmp;
   int pid = fork();
   if(pid<0)// Send an error if the fork fails
