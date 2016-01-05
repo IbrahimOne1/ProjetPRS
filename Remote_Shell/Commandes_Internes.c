@@ -34,7 +34,37 @@ void internal_cmd_echo(Expression *e)
 void remote_add (Expression *e){
   
   int num_args = num_elements(e->arguments);
-  for (int i = 2; i < num_args; ++i){
+  int num_remote_shell = num_args - 2;
+
+  pid_t myShell = getpid();
+  int tube1[num_remote_shell]; //tubes btw myShell and listeners
+  pid_t pid[num_remote_shell]; //myShell: pid of each son
+  
+  for (int i = 0; i < num_remote_shell; ++i)
+    pipe (tube[i]);
+
+  //ACTION MY SHELL
+  for (int i = 0; i < num_remote_shell; ++i){
+    if ((pid[i] = fork()) == 0){
+      //ACTION FILS LISTENER
+      //i am a listener
+      //i will create a son to execute  >>ssh name_i
+
+      pid_t pid_remoteShell_i;
+
+      if ((pid_remoteShell_i = fork()) == 0){
+	//i am remoteShell_i
+	execlp("ssh", "ssh", 
+	
+      
+
+    }
+  }
+
+  for (int i = 0; i < num_remote_shell; ++i){
+    wait(NULL);
+  }
+  return 0;
     
 }
 
@@ -42,4 +72,7 @@ void internal_cmd_remote(Expression *e){
 
   if (!strcmp (e->arguments[1], "add"))
     remote_add(e);
+    if (!strcmp (e->arguments[1], "all"))
+    remote_all(e);
+}
 
