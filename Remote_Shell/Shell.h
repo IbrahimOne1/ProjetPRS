@@ -9,6 +9,8 @@
 #define NB_ARGS 50
 #define TAILLE_ID 500
 
+int num_elements (char** array);
+
 typedef enum expr_t {
   VIDE,	         		// Commande vide 
   SIMPLE,        		// Commande simple 
