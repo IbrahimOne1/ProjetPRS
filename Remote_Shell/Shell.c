@@ -189,7 +189,7 @@ my_yyparse(void)
       | 										      |
       |   - VIDE, commande vide								      |
       |   - SIMPLE, commande simple et ses arguments					      |
-      |   - SEQUENCE, séquence (;) d'instructions					      |
+      |   - SEQUENCE, séquence (;) d'instructions //DONE					      |
       |   - SEQUENCE_ET, séquence conditionnelle (&&) d'instructions			      |
       |   - SEQUENCE_OU, séquence conditionnelle (||) d'instructions			      |
       |   - BG, tâche en arrière plan (&)						      |
@@ -238,6 +238,7 @@ main (int argc, char **argv)
 
       afficher_expr(ExpressionAnalysee); // --a enlever--
       //fflush(stdout);
+
       status=evaluer_expr(ExpressionAnalysee);
       expression_free(ExpressionAnalysee);
       

@@ -6,15 +6,53 @@
 #include <unistd.h>
 #include <signal.h>
 
+#include <time.h>
 
 void internal_cmd_exit(){
   raise(9);//send signal to calling process
   //execlp("kill", "kill", "-9", getpid(), NULL);
 }
 
+void internal_cmd_date(Expression *e){
+  time_t current_time;
+  char* c_time_string;
+  
+  current_time = time(NULL);
+  c_time_string = ctime (&current_time);
+  
+  printf("%s\n", c_time_string);
+}
+
 
  /*
-  * Execute a sequence command 
+  * Executer une commande dans un sous-shell ( () )
+  * */
+void execute_sous_shell_command(Expression *e){
+  //--version utlisant "|" aussi possible --//
+  int tube[2];
+  pipe(tube);
+  
+  int status;
+  pid_t pid = fork();
+
+  if (pid){
+    write (tube[1], *e->gauche->arguments, sizeof(*e->gauche->arguments));
+    close (tube[1]);
+    wait(&status);
+    
+  }else{
+
+    close (tube[1]);
+    dup2 (tube[0], STDIN_FILENO);
+    execlp ("./Shell", "./Shell", NULL);
+  }
+     
+}
+   
+
+
+ /*
+  * Execute a SEQUENCE command ( ; )
   * */
 void execute_sequence_command(Expression *e){
   //-- --//
@@ -41,6 +79,10 @@ void execute_simple_command(Expression *e){
 
   if (!strcmp (e->arguments[0], "exit"))
     internal_cmd_exit();
+  else if (!strcmp (e->arguments[0], "date")){
+    internal_cmd_date(e);
+    return;
+  }
   
   int tmp;
   int pid = fork();
@@ -145,6 +187,10 @@ evaluer_expr(Expression *e)
   case SEQUENCE:
     execute_sequence_command(e);
     break;
+  case SOUS_SHELL:
+    execute_sous_shell_command(e);
+    break;
+   
   }
   
   return 1;
